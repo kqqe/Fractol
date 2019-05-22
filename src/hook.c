@@ -10,15 +10,22 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "../include/fractol.h"
 
 int    hook(int key, void *param)
 {
     t_frl		*frl;
 
 	frl = (t_frl*)param;
-
-    if (key == 53)
+  printf("key = %d\n", key);
+    if (key == 65307)//53)
 		close_window(frl);
     return (0);
 }
+
+// void hook_key(int key, t_frl *frl)
+// {
+//   if (key = )
+//   frl->maxIteration *=100;
+//   make_fractal() 
+// }

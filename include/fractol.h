@@ -16,10 +16,10 @@
 # define ABS(a) (a >= 0) ? a : -a
 # define MIN(a, b) a < b ? a : b
 # define MAX(a, b) a > b ? a : b
-# define WIN  100
+# define WIN  500
 # include "mlx.h"
 
-# include "libft.h"
+# include "../libft/libft.h"
 # include <math.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -39,12 +39,18 @@ typedef struct		s_img
   typedef struct 	s_frl
   {
 	int				color;
-	double			zx;
-	double			zy;
-	double 			cx;
-	double			cy;
+	double 			zoom;
+	double 			moveX;
+	double			moveY;
+	double 			cRe;
+	double 			cIm;  
+	double			newRe; 
+	double			newIm; 
+	double			oldRe; 
+	double			oldIm;	
 	int				x;
 	int				y;
+	int 			maxIteration;
 
   }					t_frl;
 
@@ -52,6 +58,8 @@ int			close_window(void *param);
 int  		hook(int key, void *param);
 void      	init_value(t_frl *frl);
 int   		draw(int i);
-int     	make_fractal(t_frl *frl, t_img *img);
+int     	julia(t_frl *frl, t_img *img);
+int     	mandelbrod(t_frl *frl, t_img *img);
+void 		initForMandelbrod(t_frl *frl);
 
 #endif

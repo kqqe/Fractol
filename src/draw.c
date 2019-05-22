@@ -10,70 +10,94 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
-
-void      init_value(t_frl *frl)
-{
-    frl->color = 0x00FF9632;
-    frl->zx = 1;
-	frl->zy = 1;
-	frl->cx = 1;
-	frl->cy = 1;
-	frl->x = 0;
-	frl->y = 0;
-}
+#include "../include/fractol.h"
 
 int   draw(int i)
 {
-    void	*mlx_ptr;
-	void	*win_ptr;
-    t_img	img;
-    t_frl   frl;
+    t_img		*img;
+    t_frl		frl;
+    char		*s;
     
-    mlx_ptr = mlx_init();
-	win_ptr = mlx_new_window(mlx_ptr, WIN, WIN, "Fractol");
-    img.img = mlx_new_image(mlx_ptr, WIN, WIN);
-    img.addr = (unsigned int *)mlx_get_data_addr(img.img, &img.bts, &img.size_line, &img.endian);
+    if ((img = (t_img *)ft_memalloc(sizeof(t_img))) == NULL)
+		exit(0);
+    img->mlx_ptr = mlx_init();
+	img->win_ptr = mlx_new_window(img->mlx_ptr, WIN, WIN, "Fractol");
+    img->img = mlx_new_image(img->mlx_ptr, WIN, WIN);
+    s = mlx_get_data_addr(img->img, &img->bts, &img->size_line, &img->endian);
+    img->addr = (unsigned int*)s;
     init_value(&frl);
     //what_is_fractol();
-    make_fractal(&frl, &img);
-    mlx_put_image_to_window(mlx_ptr, win_ptr, &img.img, 0, 0);
-    mlx_hook(win_ptr, 2, 0, hook, (void*)(&frl));
-    mlx_loop(mlx_ptr);
+    julia(&frl, img);
+	//mandelbrod(&frl, img);
+    mlx_put_image_to_window(img->mlx_ptr, img->win_ptr, img->img, 0, 0);
+    mlx_hook(img->win_ptr, 2, (1L << 0), hook, (void*)(&frl));
+    mlx_loop(img->mlx_ptr);
     return (0);
 } 
 
-int     make_fractal(t_frl *frl, t_img *img)
+int     julia(t_frl *frl, t_img *img)
 {
-    int iteration = 0;
-    int max_iteration = 20;
-    int xtemp;
+	int		i;
 
-    while(frl->x < WIN)
-    {   
-        frl->y = 0;
-        while(frl->y < WIN)
-        {
-            xtemp = 0;
-            while ((frl->x * frl->x + frl->y * frl->y) <= 4 && (iteration < max_iteration))
-            {
-                xtemp = frl->x * frl->x - frl->y * frl->y;
-                frl->y =2 * frl->x * frl->y;
-                frl->x = xtemp;
-                iteration++;
-            }
-            // while ((frl->zx * frl->zx + frl->zy * frl->zy) < 4  &&  (iteration < max_iteration)) 
-            // {
-            //     xtemp = frl->zx * frl->zx - frl->zy * frl->zy;
-            //     frl->zy = 2 * frl->zx * frl->zy  + frl->cy ;
-            //     frl->zx = xtemp + frl->cx;
-            //     iteration++;
-            // }
-            img->addr[((int)frl->x * WIN + (int)frl->y)] = frl->color;
-            //printf("x= %d, y= %d", frl->x ,frl->y);
-            frl->y++;
-        }
-        frl->x++;
-    }
-    return (0);
+	while (frl->y++ < WIN)
+	{
+		frl->x = 0;
+		while (frl->x++ < WIN)
+		{
+    		frl->newRe = 1.5 * (frl->x - WIN / 2) / (0.5 * frl->zoom * WIN) + frl->moveX;
+    		frl->newIm = (frl->y - WIN / 2) / (0.5 * frl->zoom * WIN) + frl->moveY;
+    		i = 0;
+			while (i++ < frl->maxIteration)
+   		 	{
+				frl->oldRe = frl->newRe;
+				frl->oldIm = frl->newIm;
+				frl->newRe = frl->oldRe * frl->oldRe - frl->oldIm * frl->oldIm + frl->cRe;
+				frl->newIm = 2 * frl->oldRe * frl->oldIm + frl->cIm;
+				if((frl->newRe * frl->newRe + frl->newIm * frl->newIm) > 4) 
+					break;
+			}
+    		frl->color = 0x100045 + i * 0x070500;
+   			img->addr[frl->x + (frl->y * WIN)] = frl->color;
+  		}
+	}
+  return 0;
+}
+
+int     mandelbrod(t_frl *frl, t_img *img)
+{
+	int		i;
+
+	while (frl->y++ < WIN)
+	{
+		frl->x = 0;
+		while (frl->x++ < WIN)
+		{
+			frl->cRe = 1.5 * (frl->x - WIN / 2) / (0.5 * frl->zoom * WIN) + frl->moveX;
+			frl->cIm = (frl->y - WIN / 2) / (0.5 * frl->zoom * WIN) + frl->moveY;
+    		i = 0;
+			initForMandelbrod(frl);
+			while (i++ < frl->maxIteration)
+   		 	{
+				frl->oldRe = frl->newRe;
+				frl->oldIm = frl->newIm;
+				//zx = oldRE
+				//zy = oldIm
+				frl->newRe = frl->oldRe * frl->oldRe - frl->oldIm * frl->oldIm + frl->cRe;
+				frl->newIm = 2 * frl->oldRe * frl->oldIm + frl->cIm;
+				if((frl->newRe * frl->newRe + frl->newIm * frl->newIm) > 4) 
+					break;
+			}
+    		frl->color = 0x100045 + i * 0x070500;
+   			img->addr[frl->x + (frl->y * WIN)] = frl->color;
+  		}
+	}
+  return 0;
+}
+
+void		initForMandelbrod(t_frl *frl)
+{
+			frl->newIm = 0;
+			frl->newRe = 0;
+			frl->oldIm = 0;
+			frl->oldRe = 0;
 }

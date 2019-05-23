@@ -6,18 +6,18 @@
 #    By: pben <pben@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/18 20:38:00 by pben              #+#    #+#              #
-#    Updated: 2019/04/18 20:47:16 by pben             ###   ########.fr        #
+#    Updated: 2019/05/23 18:39:27 by pben             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=fractol
 
 CFLAGS=#-Wall -Wextra -Werror
-FFLAGS= -lXext -lX11 -lm#-framework OpenGL -framework AppKit
+FFLAGS= -framework OpenGL -framework AppKit
 
 SRC_PATH=./src
 INC_PATH=./include
-MLX_PATH=./minilibx
+MLX_PATH=./minilibx_macos
 MLX_PATH=/usr/local/lib
 MLX_INC_PATH=/usr/local/include
 FT_PATH=./libft
@@ -25,7 +25,7 @@ FT_PATH=./libft
 
 BIN_PATH=./bin
 
-SRC= draw.c fractol.c hook.c init.c
+SRC= fractol.c draw.c hook.c init.c julia.c mandelbrod.c burnship.c
 OBJ:= $(addprefix $(BIN_PATH)/,$(SRC:.c=.o))
 
 .PHONY: all clean fclean re

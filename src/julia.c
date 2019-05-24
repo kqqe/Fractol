@@ -6,17 +6,17 @@
 /*   By: pben <pben@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 17:01:48 by pben              #+#    #+#             */
-/*   Updated: 2019/05/23 18:38:14 by pben             ###   ########.fr       */
+/*   Updated: 2019/05/24 19:52:36 by pben             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
 
-int     julia(t_frl *frl, t_img *img)
+int     julia(t_frl *frl)//, t_img *img)
 {
 	int		i;
 
-	while (frl->y++ < WIN)
+	while ((frl->y)++ < WIN)
 	{
 		frl->x = 0;
 		while (frl->x++ < WIN)
@@ -34,8 +34,10 @@ int     julia(t_frl *frl, t_img *img)
 					break;
 			}
     		frl->color = 0x100045 + i * 0x070500;
-   			img->addr[frl->x + (frl->y * WIN)] = frl->color;
+   			frl->img->addr[frl->x + (frl->y * WIN)] = frl->color;
+			
   		}
 	}
+	draw(frl);
   return 0;
 }

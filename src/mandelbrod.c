@@ -6,7 +6,7 @@
 /*   By: pben <pben@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 17:01:48 by pben              #+#    #+#             */
-/*   Updated: 2019/05/23 18:37:38 by pben             ###   ########.fr       */
+/*   Updated: 2019/05/24 19:29:40 by pben             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		initForMandelbrod(t_frl *frl)
 			frl->oldRe = 0;
 }
 
-int     mandelbrod(t_frl *frl, t_img *img)
+int     mandelbrod(t_frl *frl)
 {
 	int		i;
 
@@ -45,7 +45,7 @@ int     mandelbrod(t_frl *frl, t_img *img)
 					break;
 			}
     		frl->color = 0x100045 + i * 0x070500;
-   			img->addr[frl->x + (frl->y * WIN)] = frl->color;
+   			frl->img->addr[frl->x + (frl->y * WIN)] = frl->color;
   		}
 	}
   return 0;

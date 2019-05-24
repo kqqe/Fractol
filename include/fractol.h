@@ -6,7 +6,7 @@
 /*   By: pben <pben@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 20:07:59 by adoyle            #+#    #+#             */
-/*   Updated: 2019/05/23 18:43:34 by pben             ###   ########.fr       */
+/*   Updated: 2019/05/24 19:46:09 by pben             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,13 @@ typedef struct		s_img
 int			close_window(void *param);
 int  		hook(int key, void *param);
 void      	init_value(t_frl *frl);
-int   		draw(int i);
-int     	julia(t_frl *frl, t_img *img);
-int     	mandelbrod(t_frl *frl, t_img *img);
+int   		draw(t_frl *frl);
+int     	julia(t_frl *frl);//, t_img *img);
+int     	mandelbrod(t_frl *frl);//, t_img *img);
 void 		initForMandelbrod(t_frl *frl);
-int   		burnship(t_frl *frl, t_img *img);
+int   		burnship(t_frl *frl);// t_img *img);
+void		what_is_fractal(void);//char *av);
+void		init_mlx(t_frl	*frl);
+
 
 #endif

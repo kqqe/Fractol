@@ -36,17 +36,13 @@ void		init_mlx(t_frl	*frl)
     
     if ((img = (t_img *)ft_memalloc(sizeof(t_img))) == NULL)
 		exit(0);
-	// if ((frl = (t_frl *)ft_memalloc(sizeof(t_frl))) == NULL)
-	// 	exit(0);
     img->mlx_ptr = mlx_init();
 	img->win_ptr = mlx_new_window(img->mlx_ptr, WIN, WIN, "Fractol");
     img->img = mlx_new_image(img->mlx_ptr, WIN, WIN);
     s = mlx_get_data_addr(img->img, &img->bts, &img->size_line, &img->endian);
     img->addr = (unsigned int*)s;
 	frl->img = img;
-	//mlx_hook(img->win_ptr, 2, (1L << 0), hook, (void*)(&frl));
+	mlx_hook(img->win_ptr, 2, (1L << 0), hook, (void*)(&frl));
 	//menu()
-	//draw(&frl);
 }
 
-//t_frl	init_first()

@@ -20,16 +20,15 @@ int			close_window(void *param)
 }
 
 int		main(int ac, char **av)
-
 {
-	// if (ac != 2)
-	// {
-	// 	write(1, "non arguments\n", 15);
-	//  	return (0);
-	// }
-	// if (!ft_strcmp(av[1], "j") || !ft_strcmp(av[1], "m")
-	// 				|| !ft_strcmp(av[1], "b"))
-	 	what_is_fractal();//)av[1]);
-		// else
-		// 	exit(write(1,"Invalid fractol name!\n", 23));
-}		
+	if (ac != 2)
+	{
+ 		write(1, "non arguments\n", 15);
+	  	return (0);
+	}
+	if (!ft_strcmp(av[1], "j") || !ft_strcmp(av[1], "m") || !ft_strcmp(av[1], "b"))
+ 	 	what_is_fractal(av[1]);
+	else
+		 exit(write(1,"Invalid fractol name!\n", 23));
+
+ }		

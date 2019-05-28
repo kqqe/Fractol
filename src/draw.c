@@ -14,31 +14,20 @@
 
 int   draw(t_frl *frl)
 {
-    // t_img		*img;
-    // t_frl		frl;
-    // char		*s;
-    
-    // if ((img = (t_img *)ft_memalloc(sizeof(t_img))) == NULL)
-	// 	exit(0);
-    // img->mlx_ptr = mlx_init();
-	// img->win_ptr = mlx_new_window(img->mlx_ptr, WIN, WIN, "Fractol");
-    // img->img = mlx_new_image(img->mlx_ptr, WIN, WIN);
-    // s = mlx_get_data_addr(img->img, &img->bts, &img->size_line, &img->endian);
-    // img->addr = (unsigned int*)s;
-    //init_value(&frl);
-    //what_is_fractol();
-    //julia(&frl, img);
-	//mandelbrod(&frl, img);
-	//burnship(&frl, img);
-
-    //if ()
+	 if (frl->wtf == 'j')
+	 	julia(frl);
+	 if (frl->wtf == 'm')
+	  	mandelbrod(frl);
+	 if (frl->wtf == 'b')
+	  	burnship(frl);
     mlx_put_image_to_window(frl->img->mlx_ptr, frl->img->win_ptr, frl->img->img, 0, 0);
-    //mlx_hook(img->win_ptr, 2, (1L << 0), hook, (void*)(&frl));
+    mlx_hook(frl->img->win_ptr, 2, (1L << 0), hook, (void*)(frl));
+	mlx_hook(frl->img->win_ptr, 6, (1L << 0), mouse_move, (void*)(frl));
     mlx_loop(frl->img->mlx_ptr);
     return (0);
 } 
 
-void	what_is_fractal(void)//char *av)
+void	what_is_fractal(char *av)
 {
 	t_frl *frl;
 
@@ -46,11 +35,14 @@ void	what_is_fractal(void)//char *av)
 		exit(0); 
 	init_value(frl);
 	init_mlx(frl);
-	// if (av[0] == 'j')
-		julia(frl);
-	// if (av[0] == 'm')
-	// 	mandelbrod(&frl);
-	// if (av[0] == 'b')
-	// 	burnship(&frl);
-	free(frl);
+    //menu()
+	if (av[0] == 'j')
+		frl->wtf='j';
+	if (av[0] == 'm')
+		frl->wtf='m';
+	if (av[0] == 'b')
+		frl->wtf='b';
+	printf("%c", frl->wtf);
+	draw(frl);
+	//free(frl);
 }

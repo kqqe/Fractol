@@ -16,7 +16,7 @@
 # define ABS(a) (a >= 0) ? a : -a
 # define MIN(a, b) a < b ? a : b
 # define MAX(a, b) a > b ? a : b
-# define WIN  700
+# define WIN  1000
 # include "mlx.h"
 
 # include "../libft/libft.h"
@@ -51,6 +51,7 @@ typedef struct		s_img
 	int				x;
 	int				y;
 	int 			maxIteration;
+	char 			wtf;
 	t_img			*img;
 
   }					t_frl;
@@ -60,12 +61,14 @@ int			close_window(void *param);
 int  		hook(int key, void *param);
 void      	init_value(t_frl *frl);
 int   		draw(t_frl *frl);
-int     	julia(t_frl *frl);//, t_img *img);
-int     	mandelbrod(t_frl *frl);//, t_img *img);
+int     	julia(t_frl *frl);
+int     	mandelbrod(t_frl *frl);
 void 		initForMandelbrod(t_frl *frl);
-int   		burnship(t_frl *frl);// t_img *img);
-void		what_is_fractal(void);//char *av);
+int   		burnship(t_frl *frl);
+void		what_is_fractal(char *av);
 void		init_mlx(t_frl	*frl);
+
+int		mouse_move(int x, int y, void *param);
 
 
 #endif

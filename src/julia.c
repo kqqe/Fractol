@@ -15,11 +15,12 @@
 int     julia(t_frl *frl)//, t_img *img)
 {
 	int		i;
-
-	while ((frl->y)++ < WIN)
+	
+	frl->y = 0;
+	while ((frl->y)++ <= WIN)
 	{
 		frl->x = 0;
-		while (frl->x++ < WIN)
+		while (frl->x++ <= WIN)
 		{
     		frl->newRe = 1.5 * (frl->x - WIN / 2) / (0.5 * frl->zoom * WIN) + frl->moveX;
     		frl->newIm = (frl->y - WIN / 2) / (0.5 * frl->zoom * WIN) + frl->moveY;
@@ -38,6 +39,5 @@ int     julia(t_frl *frl)//, t_img *img)
 			
   		}
 	}
-	draw(frl);
   return 0;
 }

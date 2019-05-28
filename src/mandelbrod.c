@@ -24,6 +24,7 @@ int     mandelbrod(t_frl *frl)
 {
 	int		i;
 
+	frl->y = 0;
 	while (frl->y++ < WIN)
 	{
 		frl->x = 0;

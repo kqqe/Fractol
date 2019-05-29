@@ -1,36 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   julia.c                                            :+:      :+:    :+:   */
+/*   tricorn.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pben <pben@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 17:01:48 by pben              #+#    #+#             */
-/*   Updated: 2019/05/29 16:50:57 by pben             ###   ########.fr       */
+/*   Updated: 2019/05/29 16:54:30 by pben             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fractol.h"
 
-int     julia(t_frl *frl)
+// void		initForMandelbrod(t_frl *frl)
+// {
+// 			frl->newIm = 0;
+// 			frl->newRe = 0;
+// 			frl->oldIm = 0;
+// 			frl->oldRe = 0;
+// }
+
+int    tricorn(t_frl *frl)
 {
 	int		i;
-	
+
 	frl->y = 0;
 	while (frl->y++ < WIN - 1)
 	{
 		frl->x = 0;
 		while (frl->x++ < WIN -1 )
 		{
-			frl->newRe = 2 *(frl->x - WIN / 2) / (0.5 * frl->zoom * WIN) + frl->moveX;
-			frl->newIm = 2 *(frl->y - WIN / 2) / (0.5 * frl->zoom * WIN) + frl->moveY;
+			frl->cRe = 2 * (frl->x - WIN / 2) / (0.5 * frl->zoom * WIN) + frl->moveX;
+			frl->cIm = 2 * (frl->y - WIN / 2) / (0.5 * frl->zoom * WIN) + frl->moveY;
     		i = 0;
+			initForMandelbrod(frl);
 			while (i++ < frl->maxIteration)
    		 	{
 				frl->oldRe = frl->newRe;
 				frl->oldIm = frl->newIm;
+				//zx = oldRE
+				//zy = oldIm
 				frl->newRe = frl->oldRe * frl->oldRe - frl->oldIm * frl->oldIm + frl->cRe;
-				frl->newIm = 2 * frl->oldRe * frl->oldIm + frl->cIm;
+				frl->newIm = -2 * frl->oldRe * frl->oldIm + frl->cIm;
 				if((frl->newRe * frl->newRe + frl->newIm * frl->newIm) > 4) 
 					break;
 			}

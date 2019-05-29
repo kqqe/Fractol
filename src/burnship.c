@@ -6,7 +6,7 @@
 /*   By: pben <pben@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 17:01:48 by pben              #+#    #+#             */
-/*   Updated: 2019/05/28 19:14:10 by pben             ###   ########.fr       */
+/*   Updated: 2019/05/29 17:02:13 by pben             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int     burnship(t_frl *frl)
 			}
     		if (i < frl->maxIteration)
 			{
-				frl->color = 0x100045 + i * 0x070500;
+				frl->color = 0x100045 + i * frl->color1;
    				frl->img->addr[frl->x + (frl->y * WIN)] = frl->color;
 			}
 			else
